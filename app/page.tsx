@@ -2,14 +2,16 @@
 
 import { useState, FormEventHandler, ChangeEventHandler } from "react";
 import type { ClassificationApiRes } from "./api/route";
-import UploadImagesForm from "@/components/UploadImagesForm";
-import ClassificationResults from "@/components/ClassificationResults";
+import UploadImagesForm from "@/components/upload-images-form";
+import ClassificationResults from "@/components/classification-results";
+import Spinner from "@/components/ui/spinner";
 
 export interface DataUrlsWithFilename {
   [fileName: string]: Extract<FileReader["result"], string>;
 }
 
-export default function ImageUpload() {
+export default function Home() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [imageFileList, setImageFileList] = useState<FileList | null>(null);
   const [imageDataUrls, setImageDataUrls] = useState<DataUrlsWithFilename>({});
   const [classificationResults, setClassificationResults] =
@@ -41,6 +43,8 @@ export default function ImageUpload() {
 
     if (!imageFileList) return;
 
+    setIsSubmitting(true);
+
     const formData = new FormData();
 
     Array.from(imageFileList).forEach((file) => {
@@ -54,8 +58,11 @@ export default function ImageUpload() {
 
     const data = await response.json();
 
+    setIsSubmitting(false);
     setClassificationResults(data);
   };
+
+  if (isSubmitting) return <Spinner />;
 
   return classificationResults ? (
     classificationResults.retryAfterSec ? (

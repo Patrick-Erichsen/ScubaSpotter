@@ -1,14 +1,9 @@
-export default function SubmitButton({ isSubmitting }) {
-  console.log({ formStatus });
-
+export default function Spinner() {
   return (
-    <button
-      type="submit"
-      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors"
-    >
-      {formStatus.pending ? (
+    <div className="fixed inset-0 flex items-center justify-center flex-col space-y-4">
+      <div>
         <svg
-          className="animate-spin h-5 w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white"
+          className="animate-spin h-20 w-20 text-blue-500"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -27,10 +22,10 @@ export default function SubmitButton({ isSubmitting }) {
             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
           ></path>
         </svg>
-      ) : null}
-      <span className={formStatus.pending ? "opacity-0" : "opacity-100"}>
-        Upload
-      </span>
-    </button>
+      </div>
+      <div>
+        <p className="text-lg text-blue-500">Classifying...</p>
+      </div>
+    </div>
   );
 }
