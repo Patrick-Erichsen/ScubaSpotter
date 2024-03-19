@@ -13,11 +13,11 @@ export default function ClassificationResults({
   classifications,
 }: ClassificationResults) {
   const { images } = useAppContext();
-  const [imageDataUrlAndLabel, setImageDataUrlAndLabel] =
-    useState<ChatDrawerProps["imageDataUrlAndLabel"]>(null);
+  const [selectedImageWithLabel, setSelectedImageWithLabel] =
+    useState<ChatDrawerProps["selectedImageWithLabel"]>(null);
 
   return (
-    <ChatDrawer imageDataUrlAndLabel={imageDataUrlAndLabel}>
+    <ChatDrawer selectedImageWithLabel={selectedImageWithLabel}>
       <div className="container mx-auto p-4">
         <div className="flex flex-col justify-center space-y-16">
           {Object.entries(classifications).map(([label, filenames], i) => (
@@ -29,14 +29,13 @@ export default function ClassificationResults({
                   <Drawer.Trigger asChild key={i}>
                     <div className="relative h-60">
                       <Image
+                        fill
                         onClick={() =>
-                          setImageDataUrlAndLabel([label, images[filename]])
+                          setSelectedImageWithLabel([label, images[filename]])
                         }
                         className="transition duration-500 ease-in-out hover:opacity-50 cursor-pointer"
                         src={images[filename]}
                         alt={images[filename]}
-                        layout="fill"
-                        objectFit="cover"
                       />
                     </div>
                   </Drawer.Trigger>

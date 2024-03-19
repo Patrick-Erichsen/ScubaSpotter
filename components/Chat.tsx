@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useAppContext } from "@/context/AppContext";
 
 export interface ChatProps {
-  imageDataUrlAndLabel: NonNullable<ChatDrawerProps["imageDataUrlAndLabel"]>;
+  imageDataUrlAndLabel: NonNullable<ChatDrawerProps["selectedImageWithLabel"]>;
 }
 
 export default function Chat({ imageDataUrlAndLabel }: ChatProps) {
@@ -19,20 +19,20 @@ export default function Chat({ imageDataUrlAndLabel }: ChatProps) {
    * to start the conversation.
    */
   useEffect(() => {
-    const getImageInfo = async () => {
+    const getImageInfo = () => {
       const [label, imageDataUrl] = imageDataUrlAndLabel;
 
-      const res = await append(
+      append(
         {
-          role: "user",
+          role: "system",
           content: `\
           Hello! This is a photo of a ${label}. 
           ${
             diveSiteName
-              ? `I took it at the following dive site locatin: ${diveSiteName}.`
+              ? `The user took it at the following dive site location: ${diveSiteName}.`
               : ""
           }
-          Can you tell me more about it?`,
+          Can you tell us more about it?`,
         },
         {
           data: {
