@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 export type UploadImagesFormOnSubmitParams = {
   diveSiteName?: string;
@@ -25,17 +28,17 @@ export default function UploadImagesForm({ onSubmit }: UploadImagesFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-0">
         <div className="flex flex-col justify-center space-y-8">
           <div>
-            <label htmlFor="diveSite" className="mb-2">
+            <Label htmlFor="diveSite" className="mb-2">
               Dive site
-            </label>
+            </Label>
             <p className="text-sm text-gray-500 mb-6">
               Provide the name of the dive site and the country, separated by a
               comma. For example, Nusa Penida, Indonesia.
             </p>
-            <input
+            <Input
               type="text"
               name="diveSite"
               value={diveSiteName}
@@ -45,10 +48,10 @@ export default function UploadImagesForm({ onSubmit }: UploadImagesFormProps) {
           </div>
 
           <div className="flex flex-col items-start">
-            <label htmlFor="images" className="mb-2">
+            <Label htmlFor="images" className="mb-2">
               Upload one or more images
-            </label>
-            <input
+            </Label>
+            <Input
               multiple
               required
               type="file"
@@ -56,12 +59,7 @@ export default function UploadImagesForm({ onSubmit }: UploadImagesFormProps) {
               onChange={(e) => setImages(e.target.files)}
               className="mb-2"
             />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors mt-4"
-            >
-              Upload
-            </button>
+            <Button type="submit">Submit</Button>
           </div>
         </div>
       </div>

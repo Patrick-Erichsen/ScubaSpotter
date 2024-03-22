@@ -8,6 +8,7 @@ import UploadImagesForm, {
 import ClassificationResults from "@/components/classification-results";
 import Spinner from "@/components/ui/spinner";
 import { useAppContext } from "@/context/AppContext";
+import Image from "next/image";
 
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,13 +61,41 @@ export default function Home() {
 
   if (isSubmitting) return <Spinner />;
 
-  if (!classificationResults) return <UploadImagesForm onSubmit={onSubmit} />;
+  return (
+    <div className="flex flex-col  px-4 sm:px-8 md:px-16 lg:px-20 py-10 bg-gray-100">
+      <div className="flex flex-row ">
+        <div className="basis-1/3">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Scuba Spotter 🤿
+          </h1>
 
-  return classificationResults.retryAfterSec ? (
-    "Try again, API is loading"
-  ) : (
-    <ClassificationResults
-      classifications={classificationResults.classifications}
-    />
+          <p>Identify and learn about your underwater photos</p>
+        </div>
+
+        <div className="basis-2/3 aspect-video">
+          <Image
+            src="/images/landing-page-graphic.webp"
+            alt="Image of a scuba diver photographing a turtle"
+            className="rounded-lg shadow-lg"
+            width={400}
+            height={400}
+          />
+        </div>
+      </div>
+
+      <div>
+        <UploadImagesForm onSubmit={onSubmit} />
+      </div>
+
+      <div>
+        {!classificationResults ? null : classificationResults.retryAfterSec ? (
+          "Try again, API is loading"
+        ) : (
+          <ClassificationResults
+            classifications={classificationResults.classifications}
+          />
+        )}
+      </div>
+    </div>
   );
 }
