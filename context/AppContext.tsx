@@ -1,3 +1,4 @@
+import Spinner from "@/components/ui/spinner";
 import {
   Dispatch,
   PropsWithChildren,
@@ -20,6 +21,8 @@ export interface AppContextProps {
       [fileName: string]: string;
     }>
   >;
+  isSubmitting: boolean;
+  setIsSubmitting: Dispatch<SetStateAction<boolean>>;
 }
 
 const initialContext: AppContextProps = {
@@ -27,20 +30,30 @@ const initialContext: AppContextProps = {
   setDiveSiteName: () => {},
   images: {},
   setImages: () => {},
+  isSubmitting: false,
+  setIsSubmitting: () => {},
 };
 
 export const AppContext = createContext<AppContextProps>(initialContext);
 
 export const AppContextProvider = ({ children }: PropsWithChildren) => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [images, setImages] = useState<AppContextProps["images"]>({});
   const [diveSiteName, setDiveSiteName] =
     useState<AppContextProps["diveSiteName"]>(undefined);
 
-  const [images, setImages] = useState<AppContextProps["images"]>({});
-
   return (
     <AppContext.Provider
-      value={{ diveSiteName, setDiveSiteName, images, setImages }}
+      value={{
+        diveSiteName,
+        setDiveSiteName,
+        images,
+        setImages,
+        setIsSubmitting,
+        isSubmitting,
+      }}
     >
+      {isSubmitting && <Spinner />}
       {children}
     </AppContext.Provider>
   );

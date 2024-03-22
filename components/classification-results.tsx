@@ -19,17 +19,15 @@ export default function ClassificationResults({
   return (
     <ChatDrawer selectedImageWithLabel={selectedImageWithLabel}>
       <div>
-        <h2 className="pb-2 mb-4 text-3xl font-semibold tracking-tight first:mt-0">
+        <h2 className="pb-2 mb-2 text-3xl font-semibold tracking-tight">
           Classification results
         </h2>
-        <p className="mt-4">
-          Click on an image to learn more about the specific species.
-        </p>
+        <p>Click on an image to learn more about the specific species</p>
 
-        <div className="flex flex-col justify-center space-y-16 mt-10">
+        <div className="flex flex-col justify-center space-y-10 mt-6">
           {Object.entries(classifications).map(([label, filenames], i) => (
             <section key={i}>
-              <h3 className="border-b mt-8 mb-4 scroll-m-20 text-2xl font-semibold tracking-tight">
+              <h3 className="border-b-2 mt-8 mb-4 scroll-m-20 text-2xl font-semibold tracking-tight">
                 {label}
               </h3>
 
@@ -42,7 +40,7 @@ export default function ClassificationResults({
                         onClick={() =>
                           setSelectedImageWithLabel([label, images[filename]])
                         }
-                        className="transition duration-500 ease-in-out hover:opacity-50 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+                        className="transition duration-500 ease-in-out hover:opacity-80 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
                         src={images[filename]}
                         alt={images[filename]}
                       />

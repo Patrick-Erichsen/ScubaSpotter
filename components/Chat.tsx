@@ -79,36 +79,34 @@ export default function Chat({ imageDataUrlAndLabel }: ChatProps) {
   const messagesWithoutSystemPrompt = messages.slice(1);
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      <div>
-        <div className="relative aspect-square">
-          <Image
-            src={imageDataUrlAndLabel[1]}
-            alt={imageDataUrlAndLabel[1]}
-            width="0"
-            height="0"
-            className="w-full"
-          />
-        </div>
-        <ChatList messages={messagesWithoutSystemPrompt} />
-        <ChatScrollAnchor trackVisibility={true} />
+    <div className="flex flex-col w-full py-12">
+      <div className="relative aspect-square">
+        <Image
+          src={imageDataUrlAndLabel[1]}
+          alt={imageDataUrlAndLabel[1]}
+          width="0"
+          height="0"
+          className="w-full"
+        />
       </div>
 
-      <div>
-        <form onSubmit={handleSubmit}>
-          <Textarea
-            autoFocus
-            className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
-            rows={1}
-            ref={inputRef}
-            tabIndex={0}
-            onKeyDown={onKeyDown}
-            value={input}
-            onChange={handleInputChange}
-            placeholder="Ask a question"
-          />
-        </form>
-      </div>
+      <ChatList messages={messagesWithoutSystemPrompt} />
+
+      <ChatScrollAnchor trackVisibility={true} />
+
+      <form onSubmit={handleSubmit}>
+        <Textarea
+          autoFocus
+          className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
+          rows={1}
+          ref={inputRef}
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Ask a question"
+        />
+      </form>
     </div>
   );
 }

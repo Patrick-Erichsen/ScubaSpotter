@@ -6,23 +6,27 @@ import UploadImagesForm, {
   UploadImagesFormOnSubmitParams,
 } from "@/components/upload-images-form";
 import ClassificationResults from "@/components/classification-results";
-import Spinner from "@/components/ui/spinner";
 import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
+import SampleButton from "@/components/sample-button";
+import { Separator } from "@radix-ui/react-separator";
+
+export const DEFAULT_DIVE_SITE_NAME = "Nusa Penida, Indonesia";
 
 export default function Home() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { setDiveSiteName, setImages } = useAppContext();
+  const { setDiveSiteName, setImages, setIsSubmitting } = useAppContext();
 
   const [classificationResults, setClassificationResults] =
     useState<ClassificationApiRes | null>(null);
 
-  async function classifyImages(images: FileList) {
+  async function classifyImages(
+    images: UploadImagesFormOnSubmitParams["images"]
+  ) {
     setIsSubmitting(true);
 
     const formData = new FormData();
 
-    Array.from(images).forEach((file) => {
+    images.forEach((file) => {
       formData.append("images", file);
     });
 
@@ -40,7 +44,7 @@ export default function Home() {
   function setAppContextVals(params: UploadImagesFormOnSubmitParams) {
     setDiveSiteName(params.diveSiteName);
 
-    Array.from(params.images).forEach((image) => {
+    params.images.forEach((image) => {
       const reader = new FileReader();
 
       reader.readAsDataURL(image);
@@ -59,32 +63,44 @@ export default function Home() {
     await classifyImages(params.images);
   }
 
-  if (isSubmitting) return <Spinner />;
-
   return (
-    <div className="flex flex-col  px-4 sm:px-8 md:px-16 lg:px-20 py-10 bg-gray-100">
-      <div className="flex flex-row ">
-        <div className="basis-1/3">
-          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-            Scuba Spotter 🤿
+    <div className="flex flex-col px-4 md:px-8 md:px-16 lg:px-20 py-10 md:py-14">
+      <div className="flex flex-col md:flex-row mb-16 md:mb-24">
+        <div className="w-full basis-2/5 flex flex-col mr-16">
+          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight md:text-6xl mb-8 md:mb-10">
+            Learn more about your underwater photos
           </h1>
 
-          <p>Identify and learn about your underwater photos</p>
+          <p className="mb-10 md:mb-14">
+            Scuba Spotter categorizes your underwater photos and lets you have a
+            conversation with ChatGPT to learn about the specific species at
+            your dive site, and more!
+          </p>
+
+          <div className="md:hidden">
+            <Image
+              priority
+              src="/images/hero-mobile.webp"
+              alt="Image of a scuba diver taking a photo"
+              className="rounded-lg shadow-xl w-full mb-10"
+              width={400}
+              height={400}
+            />
+          </div>
+
+          <UploadImagesForm onSubmit={onSubmit} />
         </div>
 
-        <div className="basis-2/3 aspect-video">
+        <div className="hidden md:block basis-3/5 flex items-center justify-center aspect-video">
           <Image
-            src="/images/landing-page-graphic.webp"
-            alt="Image of a scuba diver photographing a turtle"
-            className="rounded-lg shadow-lg"
+            priority
+            src="/images/hero-mobile.webp"
+            alt="Image of a scuba diver taking a photo"
+            className="rounded-lg shadow-xl w-full"
             width={400}
             height={400}
           />
         </div>
-      </div>
-
-      <div>
-        <UploadImagesForm onSubmit={onSubmit} />
       </div>
 
       <div>

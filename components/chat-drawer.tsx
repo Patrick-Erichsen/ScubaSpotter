@@ -2,7 +2,6 @@
 
 import { Drawer } from "vaul";
 import Chat from "./chat";
-import Image from "next/image";
 
 export interface ChatDrawerProps {
   selectedImageWithLabel: [label: string, imageDataUrl: string] | null;
@@ -22,23 +21,14 @@ export function ChatDrawer({
       {imageDataUrlAndLabel && (
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-          <Drawer.Content
-            className={`bg-white flex flex-col 
-            ${
-              isDesktop
-                ? "rounded-l-[10px] w-[600px] h-full"
-                : "rounded-t-[10px] w-full h-19/20"
-            } mt-24 fixed bottom-0 right-0 py-10`}
-          >
-            <div className="p-4 bg-white flex-1 h-full">
-              <div className="max-w-md mx-auto">
-                <Drawer.Title className="pb-2 mb-4 text-3xl font-semibold tracking-tight first:mt-0">
-                  Learn more
-                </Drawer.Title>
-                <Drawer.Description>Ask some questions!</Drawer.Description>
+          <Drawer.Content className="bg-white md:rounded-l-[10px] rounded-t-[10px] md:w-[600px] w-full md:h-full h-19/20 mt-24 fixed bottom-0 right-0 py-10">
+            <div className="flex flex-col max-w-lg mx-auto">
+              <Drawer.Title className="mb-4 text-3xl font-semibold tracking-tight">
+                Learn more
+              </Drawer.Title>
+              <Drawer.Description>{`Ask ChatGPT questions about this ${imageDataUrlAndLabel[0].toLowerCase()}`}</Drawer.Description>
 
-                <Chat imageDataUrlAndLabel={imageDataUrlAndLabel} />
-              </div>
+              <Chat imageDataUrlAndLabel={imageDataUrlAndLabel} />
             </div>
           </Drawer.Content>
         </Drawer.Portal>
