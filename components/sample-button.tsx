@@ -7,7 +7,11 @@ interface SubmitButtonProps {
   onClick: (params: UploadImagesFormOnSubmitParams) => void;
 }
 
-const SAMPLE_IMAGE_PATHS = ["/images/sample-images/fish1.jpeg"];
+const SAMPLE_IMAGE_PATHS = [
+  "/sample-images/fish1.jpeg",
+  "/sample-images/fish2.jpeg",
+  "/sample-images/manta-ray1.jpeg",
+];
 
 export default function SampleButton({ onClick }: SubmitButtonProps) {
   const { setIsSubmitting } = useAppContext();
@@ -34,7 +38,7 @@ export default function SampleButton({ onClick }: SubmitButtonProps) {
   }
 
   return (
-    <Button variant="outline" onClick={handleClick}>
+    <Button type="button" variant="outline" onClick={handleClick}>
       Try with sample images
     </Button>
   );

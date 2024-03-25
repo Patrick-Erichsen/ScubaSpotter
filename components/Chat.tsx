@@ -11,10 +11,18 @@ import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 import Image from "next/image";
 
 export interface ChatProps {
-  imageDataUrlAndLabel: NonNullable<ChatDrawerProps["selectedImageWithLabel"]>;
+  selectedImageWithLabel: NonNullable<
+    ChatDrawerProps["selectedImageWithLabel"]
+  >;
+  prevImage: ChatDrawerProps["prevImage"];
+  nextImage: ChatDrawerProps["prevImage"];
 }
 
-export default function Chat({ imageDataUrlAndLabel }: ChatProps) {
+export default function Chat({
+  selectedImageWithLabel,
+  prevImage,
+  nextImage,
+}: ChatProps) {
   const { diveSiteName } = useAppContext();
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const { formRef, onKeyDown } = useEnterSubmit();
@@ -49,52 +57,52 @@ export default function Chat({ imageDataUrlAndLabel }: ChatProps) {
    * On first load, send an intial message with our label and image data URL
    * to start the conversation.
    */
-  // useEffect(() => {
-  //   const getImageInfo = () => {
-  //     const [label, imageDataUrl] = imageDataUrlAndLabel;
+  //   useEffect(() => {
+  //     const getImageInfo = () => {
+  //       const { label, image } = selectedImageWithLabel;
 
-  //     append(
-  //       {
-  //         role: "system",
-  //         content: `\
-  //         Hello! This is a photo of a ${label}.
-  //         ${
-  //           diveSiteName
-  //             ? `The user took it at the following dive site location: ${diveSiteName}.`
-  //             : ""
-  //         }
-  //         Can you tell us more about it?`,
-  //       },
-  //       {
-  //         data: {
-  //           imageDataUrl,
+  //       append(
+  //         {
+  //           role: "system",
+  //           content: `\
+  // Hello! This is a photo of a ${label}. \
+  // The user took it at the following dive site location: ${diveSiteName}. \
+  // Can you tell us more about it?`,
   //         },
-  //       }
-  //     );
-  //   };
+  //         {
+  //           data: {
+  //             image,
+  //           },
+  //         }
+  //       );
+  //     };
 
-  //   getImageInfo();
-  // }, [append, diveSiteName, imageDataUrlAndLabel]);
+  //     getImageInfo();
+  //   }, [append, diveSiteName, selectedImageWithLabel]);
 
   const messagesWithoutSystemPrompt = messages.slice(1);
 
   return (
-    <div className="flex flex-col w-full py-12">
-      <div className="relative aspect-square">
-        <Image
-          src={imageDataUrlAndLabel[1]}
-          alt={imageDataUrlAndLabel[1]}
-          width="0"
-          height="0"
-          className="w-full"
-        />
+    <div className="flex flex-col h-[100%]">
+      <button onClick={() => prevImage && prevImage()}>prev</button>
+      <button onClick={() => nextImage && nextImage()}>next</button>
+      <div className="flex-grow overflow-auto mb-4 px-10 h-[0px]">
+        <div className="relative w-full md:w-1/2 h-[25vh] mb-8">
+          <Image
+            fill
+            src={selectedImageWithLabel["image"]}
+            alt={selectedImageWithLabel["image"]}
+            sizes="500px"
+            className=""
+          />
+        </div>
+
+        <ChatList messages={messagesWithoutSystemPrompt} />
+
+        <ChatScrollAnchor trackVisibility={true} />
       </div>
 
-      <ChatList messages={messagesWithoutSystemPrompt} />
-
-      <ChatScrollAnchor trackVisibility={true} />
-
-      <form onSubmit={handleSubmit}>
+      <form className="px-8" onSubmit={handleSubmit}>
         <Textarea
           autoFocus
           className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"

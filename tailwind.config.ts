@@ -18,9 +18,6 @@ const config = {
       },
     },
     extend: {
-      height: {
-        "19/20": "95%",
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

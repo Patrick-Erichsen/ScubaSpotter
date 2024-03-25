@@ -6,7 +6,7 @@ import { DEFAULT_DIVE_SITE_NAME } from "@/app/page";
 import SampleButton from "./sample-button";
 
 export type UploadImagesFormOnSubmitParams = {
-  diveSiteName?: string;
+  diveSiteName: string;
   images: File[];
 };
 
@@ -31,13 +31,12 @@ export default function UploadImagesForm({ onSubmit }: UploadImagesFormProps) {
       <div className="container mx-auto p-0">
         <div className="flex flex-col justify-center space-y-8">
           <div>
-            <Label htmlFor="diveSite" className="mb-2">
-              Dive site name
-            </Label>
+            <Label htmlFor="diveSite">Dive site name</Label>
             <p className="text-sm text-gray-500 mb-2">
               Name of the dive site and the country, separated by a comma
             </p>
             <Input
+              required
               type="text"
               name="diveSite"
               value={diveSiteName}
