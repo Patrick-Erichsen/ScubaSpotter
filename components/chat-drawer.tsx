@@ -20,8 +20,6 @@ export function ChatDrawer({
 }: ChatDrawerProps) {
   const isDesktop = window.matchMedia("(min-width: 768px)").matches;
 
-  console.log(`prevImage: ${prevImage}, nextImage: ${nextImage}`);
-
   return (
     <Drawer.Root direction={isDesktop ? "right" : "bottom"}>
       {children}

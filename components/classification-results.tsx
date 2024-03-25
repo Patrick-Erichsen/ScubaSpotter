@@ -74,7 +74,7 @@ export default function ClassificationResults({
                 {label}
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 auto-rows-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 auto-rows-auto">
                 {classifications[label].map((filename, filenameIndex) => (
                   <Drawer.Trigger asChild key={filename}>
                     <div className="relative w-full h-[25vh]">
@@ -83,8 +83,7 @@ export default function ClassificationResults({
                         src={images[filename]}
                         alt={images[filename]}
                         onClick={() => onImageClick(labelIndex, filenameIndex)}
-                        sizes="500px"
-                        className="transition duration-500 ease-in-out hover:opacity-80 cursor-pointer object-contain object-left-top"
+                        className="transition duration-500 ease-in-out hover:opacity-80 cursor-pointer object-fill"
                       />
                     </div>
                   </Drawer.Trigger>
