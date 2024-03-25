@@ -14,15 +14,9 @@ export interface ChatProps {
   selectedImageWithLabel: NonNullable<
     ChatDrawerProps["selectedImageWithLabel"]
   >;
-  prevImage: ChatDrawerProps["prevImage"];
-  nextImage: ChatDrawerProps["prevImage"];
 }
 
-export default function Chat({
-  selectedImageWithLabel,
-  prevImage,
-  nextImage,
-}: ChatProps) {
+export default function Chat({ selectedImageWithLabel }: ChatProps) {
   const { diveSiteName } = useAppContext();
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const { formRef, onKeyDown } = useEnterSubmit();
@@ -57,36 +51,34 @@ export default function Chat({
    * On first load, send an intial message with our label and image data URL
    * to start the conversation.
    */
-  //   useEffect(() => {
-  //     const getImageInfo = () => {
-  //       const { label, image } = selectedImageWithLabel;
+  useEffect(() => {
+    const getImageInfo = () => {
+      const { label, image } = selectedImageWithLabel;
 
-  //       append(
-  //         {
-  //           role: "system",
-  //           content: `\
-  // Hello! This is a photo of a ${label}. \
-  // The user took it at the following dive site location: ${diveSiteName}. \
-  // Can you tell us more about it?`,
-  //         },
-  //         {
-  //           data: {
-  //             image,
-  //           },
-  //         }
-  //       );
-  //     };
+      append(
+        {
+          role: "system",
+          content: `\
+  Hello! This is a photo of a ${label}. \
+  The user took it at the following dive site location: ${diveSiteName}. \
+  Can you tell us more about it?`,
+        },
+        {
+          data: {
+            image,
+          },
+        }
+      );
+    };
 
-  //     getImageInfo();
-  //   }, [append, diveSiteName, selectedImageWithLabel]);
+    // getImageInfo();
+  }, [append, diveSiteName, selectedImageWithLabel]);
 
   const messagesWithoutSystemPrompt = messages.slice(1);
 
   return (
     <div className="flex flex-col h-[100%]">
-      <button onClick={() => prevImage && prevImage()}>prev</button>
-      <button onClick={() => nextImage && nextImage()}>next</button>
-      <div className="flex-grow overflow-auto mb-4 px-10 h-[0px]">
+      <div className="flex-grow overflow-auto mb-4 px-12 md:px-20 h-[0px]">
         <div className="relative w-full md:w-1/2 h-[25vh] mb-8">
           <Image
             fill
@@ -102,7 +94,7 @@ export default function Chat({
         <ChatScrollAnchor trackVisibility={true} />
       </div>
 
-      <form className="px-8" onSubmit={handleSubmit}>
+      <form className="px-12 md:px-20" onSubmit={handleSubmit}>
         <Textarea
           autoFocus
           className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
