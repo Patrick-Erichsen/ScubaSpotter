@@ -44,11 +44,11 @@ export function ChatDrawer({
             <div className="flex flex-col h-[100%] w-full">
               <div className="px-12 md:px-20">
                 <Drawer.Title className="mb-4 text-3xl font-semibold">
-                  Learn more
+                  {selectedImageWithLabel["label"]}
                 </Drawer.Title>
-                <Drawer.Description className="mb-8">{`Ask ChatGPT questions about this ${selectedImageWithLabel[
+                <Drawer.Description className="mb-8">{`Learn more about the ${selectedImageWithLabel[
                   "label"
-                ].toLowerCase()}`}</Drawer.Description>
+                ].toLowerCase()} in this image using ChatGPT`}</Drawer.Description>
               </div>
 
               <Chat selectedImageWithLabel={selectedImageWithLabel} />

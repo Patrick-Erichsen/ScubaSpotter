@@ -4,7 +4,6 @@ import { ChatDrawer, ChatDrawerProps } from "./chat-drawer";
 import { Drawer } from "vaul";
 import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
-import { on } from "events";
 
 export interface ClassificationResultsProps {
   classifications: ClassificationApiRes["classifications"];
@@ -25,12 +24,12 @@ export default function ClassificationResults({
 
   function onImageClick(labelIndex: number, filenameIndex: number): void {
     const curLabel = labels[labelIndex];
-    const nextLabel = labels[labelIndex + 1];
-    const prevLabel = labels[labelIndex - 1];
-
     const curFilename = classifications[curLabel][filenameIndex];
 
     setSelectedImageWithLabel({ label: curLabel, image: images[curFilename] });
+
+    const nextLabel = labels[labelIndex + 1];
+    const prevLabel = labels[labelIndex - 1];
 
     const curLabelNextFilename = classifications[curLabel][filenameIndex + 1];
     const curLabelPrevFilename = classifications[curLabel][filenameIndex - 1];

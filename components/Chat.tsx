@@ -65,13 +65,13 @@ export default function Chat({ selectedImageWithLabel }: ChatProps) {
         },
         {
           data: {
-            image,
+            image: selectedImageWithLabel["image"],
           },
         }
       );
     };
 
-    // getImageInfo();
+    getImageInfo();
   }, [append, diveSiteName, selectedImageWithLabel]);
 
   const messagesWithoutSystemPrompt = messages.slice(1);

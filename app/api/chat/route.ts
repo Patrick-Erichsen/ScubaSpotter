@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
           {
             type: "image_url",
-            image_url: data.imageDataUrl,
+            image_url: data.image,
           },
         ],
       },
