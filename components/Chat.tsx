@@ -9,6 +9,8 @@ import { ChatScrollAnchor } from "@/lib/hooks/chat-scroll-anchor";
 import { ChatList } from "./chat-list";
 import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 import Image from "next/image";
+import { Button } from "./ui/button";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
 
 export interface ChatProps {
   selectedImageWithLabel: NonNullable<
@@ -22,30 +24,6 @@ export default function Chat({ selectedImageWithLabel }: ChatProps) {
   const { formRef, onKeyDown } = useEnterSubmit();
   const { messages, input, handleInputChange, handleSubmit, append } =
     useChat();
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "/") {
-        if (
-          e.target &&
-          ["INPUT", "TEXTAREA"].includes((e.target as any).nodeName)
-        ) {
-          return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        if (inputRef?.current) {
-          inputRef.current.focus();
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [inputRef]);
 
   /**
    * On first load, send an intial message with our label and image data URL
@@ -77,15 +55,14 @@ export default function Chat({ selectedImageWithLabel }: ChatProps) {
   const messagesWithoutSystemPrompt = messages.slice(1);
 
   return (
-    <div className="flex flex-col h-[100%]">
-      <div className="flex-grow overflow-auto mb-4 px-12 md:px-20 h-[0px]">
-        <div className="relative w-full md:w-1/2 h-[25vh] mb-8">
+    <div className="flex flex-col h-[100%] px-24">
+      <div className="flex-grow overflow-auto ">
+        <div className="relative w-full h-[33vh] max-h-[300px] ">
           <Image
             fill
             src={selectedImageWithLabel["image"]}
             alt={selectedImageWithLabel["image"]}
-            sizes="500px"
-            className=""
+            className="object-contain object-center my-4"
           />
         </div>
 
@@ -94,7 +71,11 @@ export default function Chat({ selectedImageWithLabel }: ChatProps) {
         <ChatScrollAnchor trackVisibility={true} />
       </div>
 
-      <form className="px-12 md:px-20" onSubmit={handleSubmit}>
+      <form
+        ref={formRef}
+        className="flex flex-row space-x-4 p-1 relative"
+        onSubmit={handleSubmit}
+      >
         <Textarea
           autoFocus
           className="min-h-[60px] w-full resize-none bg-transparent px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
@@ -106,6 +87,14 @@ export default function Chat({ selectedImageWithLabel }: ChatProps) {
           onChange={handleInputChange}
           placeholder="Ask a question"
         />
+        <Button
+          size="icon"
+          variant="secondary"
+          type="submit"
+          className="absolute right-4 transform -translate-y-1/2 top-1/2"
+        >
+          <ArrowUpIcon className="h-6 w-6" />
+        </Button>
       </form>
     </div>
   );

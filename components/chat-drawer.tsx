@@ -27,41 +27,43 @@ export function ChatDrawer({
       {selectedImageWithLabel && (
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-          <Drawer.Content className="bg-white md:rounded-l-[10px] rounded-t-[10px] md:w-[600px] w-full md:h-full h-[95vh] mt-24 fixed bottom-0 right-0 py-10">
-            {prevImage && (
-              <Button
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 ml-2 md:ml-4"
-                variant="ghost"
-                size="icon"
-                onClick={() => prevImage()}
-              >
-                <ChevronLeftIcon className="h-8 w-8" />
-              </Button>
-            )}
-
+          <Drawer.Content className="bg-white md:rounded-l-[10px] rounded-t-[10px] md:w-1/2 w-full md:h-full h-[95vh] mt-24 fixed bottom-0 right-0 pb-4">
             <div className="flex flex-col h-[100%] w-full">
-              <div className="px-12 md:px-20">
-                <Drawer.Title className="mb-4 text-3xl font-semibold">
-                  {selectedImageWithLabel["label"]}
-                </Drawer.Title>
-                <Drawer.Description className="mb-8">{`Learn more about the ${selectedImageWithLabel[
-                  "label"
-                ].toLowerCase()} in this image using ChatGPT`}</Drawer.Description>
+              <div className="flex flex-row justify-between items-center py-8 px-24 border-b-2 relative">
+                <div className="absolute left-6 top-1/2 transform -translate-y-1/2">
+                  {prevImage && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => prevImage()}
+                    >
+                      <ChevronLeftIcon className="h-8 w-8" />
+                    </Button>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <Drawer.Title className="mb-2 text-3xl font-semibold">
+                    {selectedImageWithLabel["label"]}
+                  </Drawer.Title>
+                  <Drawer.Description>{`Learn more about the ${selectedImageWithLabel[
+                    "label"
+                  ].toLowerCase()} in this image using ChatGPT`}</Drawer.Description>
+                </div>
+                <div className="absolute right-6 top-1/2 transform -translate-y-1/2">
+                  {nextImage && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => nextImage()}
+                    >
+                      <ChevronRightIcon className="h-8 w-8" />
+                    </Button>
+                  )}
+                </div>
               </div>
 
               <Chat selectedImageWithLabel={selectedImageWithLabel} />
             </div>
-
-            {nextImage && (
-              <Button
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 mr-2 md:mr-4"
-                variant="ghost"
-                size="icon"
-                onClick={() => nextImage()}
-              >
-                <ChevronRightIcon className="h-8 w-8" />
-              </Button>
-            )}
           </Drawer.Content>
         </Drawer.Portal>
       )}
