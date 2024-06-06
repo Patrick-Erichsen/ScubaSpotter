@@ -8,6 +8,7 @@ import UploadImagesForm, {
 import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
 import ClassificationResults from "@/components/classification-results";
+import Link from "next/link";
 
 export default function Home() {
   const { setDiveSiteName, setImages, setIsSubmitting } = useAppContext();
@@ -86,6 +87,18 @@ export default function Home() {
           <p className="mb-10 md:mb-14">
             Scuba Spotter classifies your dive photos to show you everything you
             experienced on your dive!
+          </p>
+
+          <p className="mb-10 md:mb-14">
+            This is a sample project to make use of an image classifier for
+            marine life that I fine-tuned off of <i>resnet18</i>.{" "}
+            <Link
+              href="https://huggingface.co/patrickerichsen/scuba_spotter_v0.1"
+              target="_blank"
+              className="text-blue-600 hover:underline"
+            >
+              See it on HuggingFace here.
+            </Link>
           </p>
 
           <div className="md:hidden">
