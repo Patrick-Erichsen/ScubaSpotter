@@ -34,9 +34,6 @@ export async function POST(req: Request) {
 
   const classifications: ClassificationApiRes["classifications"] = {};
 
-  /**
-   * TODO: Convert to a `.map()` with `Promise.all()`
-   */
   for (const image of images as File[]) {
     try {
       const res = await hf.imageClassification({
