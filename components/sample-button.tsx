@@ -1,4 +1,3 @@
-import { DEFAULT_DIVE_SITE_NAME } from "@/app/page";
 import { Button } from "./ui/button";
 import { UploadImagesFormOnSubmitParams } from "./upload-images-form";
 import { useAppContext } from "@/context/AppContext";
@@ -33,7 +32,6 @@ export default function SampleButton({ onClick }: SubmitButtonProps) {
 
     onClick({
       images,
-      diveSiteName: DEFAULT_DIVE_SITE_NAME,
     });
   }
 

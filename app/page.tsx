@@ -9,8 +9,6 @@ import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";
 import ClassificationResults from "@/components/classification-results";
 
-export const DEFAULT_DIVE_SITE_NAME = "Nusa Penida, Indonesia";
-
 export default function Home() {
   const { setDiveSiteName, setImages, setIsSubmitting } = useAppContext();
 
