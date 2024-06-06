@@ -55,7 +55,7 @@ export async function POST(req: Request) {
         labelFilenames === undefined
           ? [image.name]
           : [...labelFilenames, image.name];
-    } catch (e) {
+    } catch (e: any) {
       if (e.hasOwnProperty("estimated_time")) {
         console.log("Retry after ", e.estimated_time);
         return Response.json({ retryAfterSec: e.estimated_time });
