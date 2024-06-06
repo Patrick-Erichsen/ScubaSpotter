@@ -58,8 +58,6 @@ export default function Home() {
   }
 
   function setAppContextVals(params: UploadImagesFormOnSubmitParams) {
-    setDiveSiteName(params.diveSiteName);
-
     params.images.forEach((image) => {
       const reader = new FileReader();
 
@@ -84,13 +82,12 @@ export default function Home() {
       <div className="flex flex-col md:flex-row">
         <div className="w-full basis-2/5 flex flex-col mr-16">
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight md:text-6xl mb-8 md:mb-10">
-            Learn about the sea life in your underwater photos
+            Classify the sea life in your underwater photos
           </h1>
 
           <p className="mb-10 md:mb-14">
-            Scuba Spotter classifies your dive photos and lets you have a
-            conversation with ChatGPT to learn about the specific species at
-            your dive site, and more!
+            Scuba Spotter classifies your dive photos to show you everything you
+            experienced on your dive!
           </p>
 
           <div className="md:hidden">

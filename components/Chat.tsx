@@ -55,14 +55,14 @@ export default function Chat({ selectedImageWithLabel }: ChatProps) {
   const messagesWithoutSystemPrompt = messages.slice(1);
 
   return (
-    <div className="flex flex-col h-[100%] px-24">
-      <div className="flex-grow overflow-auto ">
+    <div className="flex flex-col h-[100%]">
+      <div className="flex-grow overflow-auto mx-16 md:mx-24">
         <div className="relative w-full h-[33vh] max-h-[300px] ">
           <Image
             fill
             src={selectedImageWithLabel["image"]}
             alt={selectedImageWithLabel["image"]}
-            className="object-contain object-center my-4"
+            className="object-contain object-right my-4"
           />
         </div>
 
@@ -73,7 +73,7 @@ export default function Chat({ selectedImageWithLabel }: ChatProps) {
 
       <form
         ref={formRef}
-        className="flex flex-row space-x-4 p-1 relative"
+        className="flex flex-row space-x-4 p-1 relative mx-16 md:mx-24"
         onSubmit={handleSubmit}
       >
         <Textarea

@@ -8,11 +8,6 @@ import Header from "@/components/ui/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   title: "Scuba Spotter",
-//   description: "Learn about your underwater photos",
-// };
-
 export default function RootLayout({
   children,
 }: Readonly<{

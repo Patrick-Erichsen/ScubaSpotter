@@ -29,8 +29,8 @@ export function ChatDrawer({
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
           <Drawer.Content className="bg-white md:rounded-l-[10px] rounded-t-[10px] md:w-1/2 w-full md:h-full h-[95vh] mt-24 fixed bottom-0 right-0 pb-4">
             <div className="flex flex-col h-[100%] w-full">
-              <div className="flex flex-row justify-between items-center py-8 px-24 border-b-2 relative">
-                <div className="absolute left-6 top-1/2 transform -translate-y-1/2">
+              <div className="flex flex-row justify-between items-center py-8 px-12 md:px-24 border-b-2 relative">
+                <div className="absolute left-2 md:left-6 top-1/2 transform -translate-y-1/2">
                   {prevImage && (
                     <Button
                       variant="ghost"
@@ -49,7 +49,7 @@ export function ChatDrawer({
                     "label"
                   ].toLowerCase()} in this image using ChatGPT`}</Drawer.Description>
                 </div>
-                <div className="absolute right-6 top-1/2 transform -translate-y-1/2">
+                <div className="absolute right-2 md:right-6 top-1/2 transform -translate-y-1/2">
                   {nextImage && (
                     <Button
                       variant="ghost"
